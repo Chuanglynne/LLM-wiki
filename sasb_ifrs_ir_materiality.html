@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SASB / IFRS S1/S2 / IR 重大性差異｜自然大地暖陽風教學簡報</title>
+  <style>
+    :root {
+      /* 自然大地暖陽風（Warm Eco & Sand）色票 */
+      --sand-bg: #F6F1E7;
+      --sand-card: #FFFDF9;
+      --sand-surface: #EFE7D6;
+      --sand-border: #DFD2B8;
+      --ink-main: #2F2A24;
+      --ink-muted: #665D52;
+      --terracotta: #C86D44;
+      --terracotta-soft: #F9EAE3;
+      --olive: #4F6D52;
+      --olive-soft: #E8F0E9;
+      --amber: #B8822A;
+      --amber-soft: #FDF3DF;
+      --shadow-soft: 0 10px 30px rgba(74, 58, 38, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, -apple-system, sans-serif;
+      background: radial-gradient(circle at top right, #FBF6EC 0%, var(--sand-bg) 55%, #ECE2CE 100%);
+      color: var(--ink-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.65;
+    }
+
+    /* 頂部導覽列 */
+    header.topbar {
+      background: rgba(255, 253, 249, 0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--sand-border);
+      padding: 12px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      color: var(--ink-main);
+      font-size: 1rem;
+    }
+
+    .brand-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--terracotta), var(--amber));
+      box-shadow: 0 0 0 4px var(--terracotta-soft);
+    }
+
+    .slide-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .pill-btn {
+      border: 1px solid var(--sand-border);
+      background: var(--sand-surface);
+      color: var(--ink-muted);
+      padding: 5px 11px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .pill-btn:hover {
+      border-color: var(--terracotta);
+      color: var(--ink-main);
+    }
+
+    .pill-btn.active {
+      background: var(--terracotta);
+      color: #FFFFFF;
+      border-color: var(--terracotta);
+      font-weight: 600;
+    }
+
+    /* 主舞台 */
+    main.stage {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 28px 24px;
+    }
+
+    section.slide {
+      display: none;
+      width: 100%;
+      max-width: 1120px;
+      background: var(--sand-card);
+      border: 1px solid var(--sand-border);
+      border-radius: 24px;
+      box-shadow: var(--shadow-soft);
+      padding: 40px 44px;
+      animation: fadeSlide 0.28s ease;
+    }
+
+    section.slide.active {
+      display: block;
+    }
+
+    @keyframes fadeSlide {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .slide-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--olive-soft);
+      color: var(--olive);
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 5px 14px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+    }
+
+    h1.slide-title {
+      font-size: clamp(1.75rem, 2.8vw, 2.35rem);
+      color: var(--ink-main);
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+
+    p.slide-subtitle {
+      color: var(--ink-muted);
+      font-size: 1.02rem;
+      margin-bottom: 26px;
+    }
+
+    /* 雙層筆記卡片樣式 */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 22px;
+      margin-bottom: 24px;
+    }
+
+    .card {
+      background: var(--sand-surface);
+      border: 1px solid var(--sand-border);
+      border-radius: 18px;
+      padding: 22px;
+    }
+
+    .card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge {
+      font-size: 0.75rem;
+      padding: 2px 9px;
+      border-radius: 999px;
+      font-weight: 700;
+    }
+
+    .badge-terra {
+      background: var(--terracotta-soft);
+      color: var(--terracotta);
+    }
+
+    .badge-olive {
+      background: var(--olive-soft);
+      color: var(--olive);
+    }
+
+    .badge-amber {
+      background: var(--amber-soft);
+      color: var(--amber);
+    }
+
+    .redline-box {
+      background: #FFFDF9;
+      border-left: 4px solid var(--terracotta);
+      padding: 12px 14px;
+      border-radius: 0 12px 12px 0;
+      font-size: 0.94rem;
+      margin-bottom: 12px;
+    }
+
+    .redline-label {
+      font-weight: 700;
+      color: var(--terracotta);
+      display: block;
+      margin-bottom: 4px;
+      font-size: 0.84rem;
+    }
+
+    .plain-box {
+      background: var(--olive-soft);
+      border-left: 4px solid var(--olive);
+      padding: 11px 14px;
+      border-radius: 0 12px 12px 0;
+      font-size: 0.94rem;
+      color: var(--ink-main);
+    }
+
+    .plain-label {
+      font-weight: 700;
+      color: var(--olive);
+      margin-right: 6px;
+    }
+
+    .cite {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 0.78rem;
+      color: var(--ink-muted);
+      background: rgba(223, 210, 184, 0.55);
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+
+    /* 比較表格 */
+    table.cmp-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0 22px;
+      font-size: 0.92rem;
+      background: #FFFDF9;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--sand-border);
+    }
+
+    table.cmp-table th,
+    table.cmp-table td {
+      padding: 13px 15px;
+      border-bottom: 1px solid var(--sand-border);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    table.cmp-table th {
+      background: var(--sand-surface);
+      color: var(--ink-main);
+      font-weight: 700;
+    }
+
+    table.cmp-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* 互動情境切換器 */
+    .scenario-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .scenario-btn {
+      padding: 9px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--sand-border);
+      background: var(--sand-surface);
+      color: var(--ink-main);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .scenario-btn.active {
+      background: var(--olive);
+      color: #FFFFFF;
+      border-color: var(--olive);
+    }
+
+    .callout-warn {
+      background: var(--amber-soft);
+      border: 1px solid #E5C27D;
+      border-radius: 14px;
+      padding: 14px 18px;
+      font-size: 0.92rem;
+      color: var(--ink-main);
+    }
+
+    /* 底部控制列 */
+    footer.controls {
+      background: rgba(255, 253, 249, 0.92);
+      border-top: 1px solid var(--sand-border);
+      padding: 12px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-btn {
+      background: var(--sand-surface);
+      border: 1px solid var(--sand-border);
+      color: var(--ink-main);
+      padding: 8px 18px;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .nav-btn:hover:not(:disabled) {
+      background: var(--terracotta);
+      color: #FFFFFF;
+      border-color: var(--terracotta);
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .slide-counter {
+      font-size: 0.9rem;
+      color: var(--ink-muted);
+      font-weight: 600;
+    }
+
+    @media (max-width: 720px) {
+      section.slide {
+        padding: 24px 20px;
+      }
+      .grid-2, .grid-3 {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-dot"></span>
+      <span>永續準則教學｜SASB・IFRS S1/S2・IR 重大性差異</span>
+    </div>
+    <nav class="slide-pills" aria-label="投影片導覽">
+      <button class="pill-btn active" data-slide="0">01 總覽與核心差異</button>
+      <button class="pill-btn" data-slide="1">02 SASB 財務重大性</button>
+      <button class="pill-btn" data-slide="2">03 IFRS S1/S2 整合與接軌</button>
+      <button class="pill-btn" data-slide="3">04 IR 六大資本與價值創造</button>
+      <button class="pill-btn" data-slide="4">05 實務雙軌與情境演練</button>
+    </nav>
+  </header>
+
+  <main class="stage">
+    <!-- 第 1 頁：總覽與核心差異 -->
+    <section class="slide active" id="slide-0">
+      <div class="slide-kicker">自然大地暖陽風・初學者核心觀念</div>
+      <h1 class="slide-title">為什麼 SASB、IFRS S1/S2 與 IR 看「重大性」的角度不同？</h1>
+      <p class="slide-subtitle">先搞懂「誰是主要讀者」與「衡量什麼影響」，就能瞬間分清三大架構的角色與交集。</p>
+
+      <table class="cmp-table">
+        <thead>
+          <tr>
+            <th style="width: 17%;">準則／框架</th>
+            <th style="width: 24%;">重大性核心視角</th>
+            <th style="width: 29%;">關注焦點與衡量對象</th>
+            <th style="width: 30%;">報告書載體與時程紅線</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>SASB 準則</strong><span class="badge badge-terra">財務重大性</span></td>
+            <td>投資人觀點（關注證據、經濟影響證據、前瞻調整）</td>
+            <td>11 產業屬性、77 行業專屬指標（約 74% 量化）＋ 活動指標，影響企業營收、成本、風險與估值</td>
+            <td>可揭露於年報永續資訊專章、永續報告書或整合性報告書</td>
+          </tr>
+          <tr>
+            <td><strong>IFRS S1 / S2</strong><span class="badge badge-amber">財務重大性</span></td>
+            <td>投資人觀點（ISSB 整合 SASB、CDSB、VRF、TCFD）</td>
+            <td>治理、策略、風險管理、指標與目標；報導個體與期間須與財報一致，具攸關、重大、忠實表述等品質</td>
+            <td>股東會年報「永續資訊專章」，與年度財報同步於<strong>每年 3 月</strong>公告（2026 起分三階段接軌）</td>
+          </tr>
+          <tr>
+            <td><strong>整合型報告 (IR)</strong><span class="badge badge-olive">價值創造</span></td>
+            <td>整合性思考＋六大資本之短、中、長期價值創造</td>
+            <td>財務、製造、智慧、人力、社會與關係、自然六大資本轉換與權衡得失；七大原則、八大內容要件</td>
+            <td>整合財務與非財務資訊之價值創造報告（涉及競爭優勢重大資訊得保留）</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="plain-box">
+        <span class="plain-label">白話一句話看懂：</span>
+        <strong>SASB</strong> 像「分科考卷」幫不同行業挑出最影響賺錢與股價的指標；<strong>IFRS S1/S2</strong> 把這些要求升格成「跟財報同步、每年 3 月交卷」的全球準則；<strong>IR</strong> 則像「企業價值故事書」，把六大資本怎麼互相轉換、創造長期價值一次講清楚。
+      </div>
+      <div class="cite">出處：2-2 永續會計準則委員會(SASB)準則、整合型報告(Integrated Reporting)_2025_Vincent.pdf | p.12-16, p.22-25, p.35-40</div>
+    </section>
+
+    <!-- 第 2 頁：SASB 財務重大性 -->
+    <section class="slide" id="slide-1">
+      <div class="slide-kicker">架構解析 01・SASB</div>
+      <h1 class="slide-title">SASB 準則：以「財務重大性」為核心的 77 行業指標</h1>
+      <p class="slide-subtitle">SASB 聚焦對企業現金流量、風險與估值具實質影響的 ESG 議題，強調跨同業可比較性。</p>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3><span class="badge badge-terra">原文紅線</span> 架構、SICS 分類與量化比重</h3>
+          <div class="redline-box">
+            <span class="redline-label">【準則原文紅線】</span>
+            SASB 涵蓋 5 大永續面向（環境資本、社會資本、人力資本、商業模式及創新、領導與治理）與 26 個 ESG 議題；透過永續行業分類系統（SICS）將企業分為 11 個產業屬性、共 <strong>77 個行業</strong>。各產業平均 6 個揭露主題與 13 個關鍵指標（約 <strong>74% 為量化指標</strong>），並搭配活動指標（Activity metrics）與技術指南（Technical protocols）。
+          </div>
+          <div class="plain-box">
+            <span class="plain-label">白話一句話看懂：</span>
+            SASB 把企業分成 77 個行業，每個行業平均考 13 題且超過七成是數字題，還要附上公司規模基準（如廠房面積或放款總額）才能跟同業比高低。
+          </div>
+          <div class="cite">出處：2-2 永續會計準則委員會(SASB)準則、整合型報告(Integrated Reporting)_2025_Vincent.pdf | p.23-24, p.28-29, p.31</div>
+        </div>
+
+        <div class="card">
+          <h3><span class="badge badge-amber">原文紅線</span> 重大性三支柱與多行業適用</h3>
+          <div class="redline-box">
+            <span class="redline-label">【準則原文紅線】</span>
+            SASB 依據「關注證據（Evidence of interest）」、「經濟影響證據（Evidence of financial impact）」與「前瞻性調整（Forward impact adjustment）」判定產業重大性。若單一企業擁有多項業務，可同時對應多個 SICS 行業並分別評估適用指標；若省略或修改特定指標，建議清楚解釋原因。
+          </div>
+          <div class="plain-box">
+            <span class="plain-label">白話一句話看懂：</span>
+            SASB 挑議題的標準是「投資人關不關心、會不會影響賺錢與風險」；集團若跨多個行業就要分別對照，有沒揭露的指標要寫清楚理由。
+          </div>
+          <div class="cite">出處：2-2 永續會計準則委員會(SASB)準則、整合型報告(Integrated Reporting)_2025_Vincent.pdf | p.25, p.27, p.30</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 第 3 頁：IFRS S1/S2 整合與接軌 -->
+    <section class="slide" id="slide-2">
+      <div class="slide-kicker">架構解析 02・ISSB & IFRS S1/S2</div>
+      <h1 class="slide-title">IFRS S1 / S2：整合全球框架與臺灣分階段接軌紅線</h1>
+      <p class="slide-subtitle">ISSB 將 SASB 與整合型報告等框架納入 IFRS 體系，使永續資訊與財務報告在範圍與時程上高度對齊。</p>
+
+      <div class="grid-3">
+        <div class="card">
+          <h3><span class="badge badge-amber">國際整合</span> ISSB 成立與公報進程</h3>
+          <div class="redline-box">
+            <span class="redline-label">【準則原文紅線】</span>
+            IFRS 基金會於 2021 年 11 月宣布成立 ISSB，2022 年 6 月整合 CDSB 與 VRF（含 SASB 與 IIRC），2023 年 6 月發布 IFRS S1 與 S2（2024 年 1 月 1 日生效）；後續研擬 S3、S4，未來預計涵蓋 S5 與 S6，並參酌 TCFD 建立治理、策略、風險管理、指標與目標四大構面。
+          </div>
+          <div class="plain-box">
+            <span class="plain-label">白話一句話看懂：</span>
+            ISSB 把分散的準則收攏成 IFRS S1 與 S2，用四大構面向投資人交代永續與氣候對公司財務的影響。
+          </div>
+          <div class="cite">出處：2-2 永續會計準則委員會(SASB)準則、整合型報告(Integrated Reporting)_2025_Vincent.pdf | p.12-14, p.17</div>
+        </div>
+
+        <div class="card">
+          <h3><span class="badge badge-terra">臺灣時程</span> 三階段接軌與 3 月公告</h3>
+          <div class="redline-box">
+            <span class="redline-label">【準則原文紅線】</span>
+            臺灣上市櫃分三階段接軌 IFRS 永續揭露準則：2026 年（資本額 100 億元以上）、2027 年（50 億至未達 100 億元）、2028 年（其餘所有上市櫃公司）。須於股東會年報新增「永續資訊專章」，與年度財報同步於<strong>每年 3 月</strong>公告；2025 年 1 月 1 日起永續資訊管理納入內控年度必要稽核。
+          </div>
+          <div class="plain-box">
+            <span class="plain-label">白話一句話看懂：</span>
+            大公司 2026 年起年報就要設「永續資訊專章」，跟著財報在每年 3 月一起公布，且 2025 年起內控就得查這塊。
+          </div>
+          <div class="cite">出處：2-2 永續會計準則委員會(SASB)準則、整合型報告(Integrated Reporting)_2025_Vincent.pdf | p.15-16</div>
+        </div>
+
+        <div class="card">
+          <h3><span class="badge badge-olive">報導規則</span> 財報一致性與過渡豁免</h3>
+          <div class="redline-box">
+            <span class="redline-label">【準則原文紅線】</span>
+            報導個體須與財報相同（合併報表母子公司範圍）、同期報導，並具備攸關、重大、忠實表述與可比、可驗證、時效、可了解性。首次採用年度享有四項豁免：免揭露前期比較資訊、主管機關得另訂或沿用溫室氣體計算方式、得僅揭露氣候相關風險與機會、範疇三可延後一年揭露。
+          </div>
+          <div class="plain-box">
+            <span class="plain-label">白話一句話看懂：</span>
+            公司範圍和時間要跟財報一致；第一年上路有緩衝期，不用比對去年，範疇三也可以晚一年再交。
+          </div>
+          <div class="cite">出處：2-2 永續會計準則委員會(SASB)準則、整合型報告(Integrated Reporting)_2025_Vincent.pdf | p.15, p.18-19</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 第 4 頁：IR 六大資本與價值創造 -->
+    <section class="slide" id="slide-3">
+      <div class="slide-kicker">架構解析 03・Integrated Reporting</div>
+      <h1 class="slide-title">整合型報告（IR）：以「六大資本」呈現價值創造與權衡</h1>
+      <p class="slide-subtitle">IR 不只看單一財務數字，而是說明企業如何透過商業模式轉換各類資本，創造短、中、長期價值。</p>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3><span class="badge badge-olive">六大資本</span> 投入、轉換與權衡得失</h3>
+          <div class="redline-box">
+            <span class="redline-label">【準則原文紅線】</span>
+            整合型報告以「整合性思考（Integrated Thinking）」為核心，說明組織如何透過商業模式運用及轉換<strong>六大資本</strong>（財務資本、製造資本、智慧資本、人力資本、社會與關係資本、自然資本）以創造、改變或減損短、中、長期價值，並呈現各項資本間的權衡得失（Trade-offs）與全方位企業價值（有形價值、共享價值、外部性）。
+          </div>
+          <div class="plain-box">
+            <span class="plain-label">白話一句話看懂：</span>
+            蓋廠或研發可能先花掉現金、影響自然環境，卻換來智慧資本與長期營收；IR 的重點就是把這些「拿什麼換什麼」說清楚。
+          </div>
+          <div class="cite">出處：2-2 永續會計準則委員會(SASB)準則、整合型報告(Integrated Reporting)_2025_Vincent.pdf | p.35-38, p.51</div>
+        </div>
+
+        <div class="card">
+          <h3><span class="badge badge-amber">七原則八要件</span> 編製架構與機密保留</h3>
+          <div class="redline-box">
+            <span class="redline-label">【準則原文紅線】</span>
+            整合型報告遵循<strong>七大指導原則</strong>（策略與未來、資訊融會貫通、利害關係人關係、重大性、簡潔性、可靠性和完整性、一致性和可比較性）與<strong>八大內容要件</strong>（組織概述與外部環境、治理、商業模式、風險與機會、策略與資源分配、績效、未來展望、報告呈現基礎）；涉及自身競爭優勢之重大資訊得保留不揭露。
+          </div>
+          <div class="plain-box">
+            <span class="plain-label">白話一句話看懂：</span>
+            寫 IR 要把策略、商業模式、風險和未來展望串成一條線，內容要簡潔可靠；若牽涉核心商業機密，可以保留不公開。
+          </div>
+          <div class="cite">出處：2-2 永續會計準則委員會(SASB)準則、整合型報告(Integrated Reporting)_2025_Vincent.pdf | p.39-40</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 第 5 頁：實務雙軌與情境演練 -->
+    <section class="slide" id="slide-4">
+      <div class="slide-kicker">實務應用與差異檢核・臺灣雙軌</div>
+      <h1 class="slide-title">實務雙軌對齊：3 月年報專章 vs. 8 月永續報告書</h1>
+      <p class="slide-subtitle">點擊下方情境按鈕，快速檢視跨準則差異與臺灣上市櫃實務應對重點。</p>
+
+      <div class="scenario-bar" role="tablist" aria-label="實務情境切換">
+        <button class="scenario-btn active" data-scenario="mat">差異一：財務重大性 vs. 衝擊／雙重重大性</button>
+        <button class="scenario-btn" data-scenario="time">差異二：3 月年報專章 vs. 8 月永續報告書</button>
+        <button class="scenario-btn" data-scenario="multi">情境三：跨產業集團如何套用 SASB？</button>
+      </div>
+
+      <div class="card" id="scenario-panel">
+        <h3><span class="badge badge-terra">重大性視角差異</span> 投資人財務觀點 vs. 利害關係人衝擊觀點</h3>
+        <div class="redline-box">
+          <span class="redline-label">【準則原文紅線】</span>
+          GRI 聚焦組織活動對經濟、環境及人群（含人權）的<strong>衝擊重大性</strong>（多元利害關係人觀點）；SASB 與 IFRS S1/S2 聚焦對企業現金流量、風險與估值的<strong>財務重大性</strong>（投資人觀點）；整合型報告（IR）聚焦<strong>六大資本之價值創造</strong>。
+        </div>
+        <div class="plain-box">
+          <span class="plain-label">白話一句話看懂：</span>
+          同一件事，投資人問「會不會影響公司賺錢與股價」，社會大眾與員工問「對環境和人權造成什麼影響」；臺灣實務上是兩邊都要顧到，只是時間與揭露位置不同。
+        </div>
+        <div class="cite">出處：2-1 GRI Standards | p.4, p.6；2-2 SASB & IR | p.14-16, p.36</div>
+      </div>
+
+      <div class="callout-warn" style="margin-top: 18px;">
+        <strong>【⚠️ 跨準則差異與查核提醒】</strong> 切勿把 GRI「8 月底前申報之永續報告書」與 IFRS S1/S2「每年 3 月與財報同步公告之年報永續資訊專章」混為一談；另「永續資訊之管理」自 2025 年 1 月 1 日起已納入內部控制年度必要稽核項目[cite: 1, 8]。
+      </div>
+    </section>
+  </main>
+
+  <footer class="controls">
+    <button class="nav-btn" id="prev-btn" disabled>← 上一頁</button>
+    <span class="slide-counter" id="slide-counter">第 1 / 5 頁</span>
+    <button class="nav-btn" id="next-btn">下一頁 →</button>
+  </footer>
+
+  <script>
+    const slides = Array.from(document.querySelectorAll("section.slide"));
+    const pills = Array.from(document.querySelectorAll(".pill-btn"));
+    const prevBtn = document.getElementById("prev-btn");
+    const nextBtn = document.getElementById("next-btn");
+    const counter = document.getElementById("slide-counter");
+    let current = 0;
+
+    function showSlide(index) {
+      current = Math.max(0, Math.min(slides.length - 1, index));
+      slides.forEach((s, i) => s.classList.toggle("active", i === current));
+      pills.forEach((p, i) => p.classList.toggle("active", i === current));
+      prevBtn.disabled = current === 0;
+      nextBtn.disabled = current === slides.length - 1;
+      counter.textContent = `第 ${current + 1} / ${slides.length} 頁`;
+    }
+
+    pills.forEach((btn) => {
+      btn.addEventListener("click", () => showSlide(Number(btn.dataset.slide)));
+    });
+    prevBtn.addEventListener("click", () => showSlide(current - 1));
+    nextBtn.addEventListener("click", () => showSlide(current + 1));
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight" || e.key === "PageDown") showSlide(current + 1);
+      if (e.key === "ArrowLeft" || e.key === "PageUp") showSlide(current - 1);
+    });
+
+    const scenarios = {
+      mat: {
+        html: `
+          <h3><span class="badge badge-terra">重大性視角差異</span> 投資人財務觀點 vs. 利害關係人衝擊觀點</h3>
+          <div class="redline-box">
+            <span class="redline-label">【準則原文紅線】</span>
+            GRI 聚焦組織活動對經濟、環境及人群（含人權）的<strong>衝擊重大性</strong>（多元利害關係人觀點）；SASB 與 IFRS S1/S2 聚焦對企業現金流量、風險與估值的<strong>財務重大性</strong>（投資人觀點）；整合型報告（IR）聚焦<strong>六大資本之價值創造</strong>。
+          </div>
+          <div class="plain-box">
+            <span class="plain-label">白話一句話看懂：</span>
+            同一件事，投資人問「會不會影響公司賺錢與股價」，社會大眾與員工問「對環境和人權造成什麼影響」；臺灣實務上是兩邊都要顧到，只是時間與揭露位置不同。
+          </div>
+          <div class="cite">出處：2-1 GRI Standards | p.4, p.6；2-2 SASB & IR | p.14-16, p.36</div>
+        `
+      },
+      time: {
+        html: `
+          <h3><span class="badge badge-amber">時程與載體差異</span> 每年 3 月年報專章 vs. 每年 8 月底前永續報告書</h3>
+          <div class="redline-box">
+            <span class="redline-label">【準則原文紅線】</span>
+            依證交所與櫃買中心作業辦法，符合條件上市櫃公司應於<strong>每年 8 月底前</strong>申報前一年度永續報告書（參考 GRI 準則）；依金管會接軌規劃，自 2026 年起分三階段於股東會年報新增「永續資訊專章」（依 IFRS S1/S2/SASB），提前與年度財報同步於<strong>每年 3 月</strong>公告。
+          </div>
+          <div class="plain-box">
+            <span class="plain-label">白話一句話看懂：</span>
+            3 月交年報裡的「永續資訊專章」（對齊財報、給投資人看），8 月底前交「永續報告書」（對齊 GRI、給利害關係人看），兩份期限與重點不同。
+          </div>
+          <div class="cite">出處：2-1 GRI Standards | p.4；2-2 SASB & IR | p.15-16</div>
+        `
+      },
+      multi: {
+        html: `
+          <h3><span class="badge badge-olive">多行業實務</span> 跨產業企業如何對照 SICS 77 行業指標？</h3>
+          <div class="redline-box">
+            <span class="redline-label">【準則原文紅線】</span>
+            若單一企業擁有多項業務，可同時對應多個 SICS 行業並分別評估適用主題與指標，且須搭配活動指標衡量經營規模；若省略或修改特定指標，建議清楚解釋原因。
+          </div>
+          <div class="plain-box">
+            <span class="plain-label">白話一句話看懂：</span>
+            如果公司同時有製造與金融或不同產品線，不能只挑一個行業硬套，要把對應的 SICS 行業指標分別盤點，沒寫出來的要交代原因。
+          </div>
+          <div class="cite">出處：2-2 永續會計準則委員會(SASB)準則、整合型報告(Integrated Reporting)_2025_Vincent.pdf | p.27-31</div>
+        `
+      }
+    };
+
+    const scenarioBtns = Array.from(document.querySelectorAll(".scenario-btn"));
+    const scenarioPanel = document.getElementById("scenario-panel");
+    scenarioBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        scenarioBtns.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        scenarioPanel.innerHTML = scenarios[btn.dataset.scenario].html;
+      });
+    });
+  </script>
+</body>
+</html>
